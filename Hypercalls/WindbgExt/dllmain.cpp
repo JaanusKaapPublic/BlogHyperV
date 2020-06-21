@@ -186,9 +186,16 @@ CPPMOD __declspec(dllexport) VOID hc_list(HANDLE hCurrentProcess, HANDLE hCurren
 		//Display info
 		dprintf("hypercall 0x%02x: %I64x", nr, handler);
 		if (handler == noCall)
+		{
 			dprintf("  [NOT ACTIVE/IMPLEMENTED HYPERCALL]\n");
+		}
 		else
-			dprintf("  %s\n", HypercallNames[nr].c_str()); //TODO: add limits
+		{
+			if (nr < 0xEF)
+				dprintf("  %s\n", HypercallNames[nr].c_str());
+			else
+				dprintf("  [UNKNOWN NAME]\n");
+		}
 	}
 }
 
